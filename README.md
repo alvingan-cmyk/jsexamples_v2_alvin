@@ -104,3 +104,24 @@ Upon completing this tutorial, you should be able to:
 6. **Integrate JS with HTML:** Understand the relationship between the JavaScript functions (in `script.js`) and the HTML form elements (in `index.html`), specifically by using the onclick attribute to call a function (`ftnProcessName()`) when the form button is clicked.
 
 ---
+
+## D — Control Flow  
+**Folders:**  
+- `d_controlflow`  
+- `d_controlflow_answer`
+
+### Objective  
+The section demonstrates the practical use of **Control Flow** structures—specifically conditional logic (`if` statements) and the `switch` statement—integrated with DOM Manipulation and Event Handling to create robust, interactive client-side form logic.
+
+### Learning Outcome
+Upon completing this exerise, you should be able to:
+
+1. **Implement Control Flow for Validation:** Apply conditional logic within the validateInputs and `ftnProcessName` functions to create a multi-layered validation gate, ensuring required fields and radio button selections are complete before proceeding.
+
+2. **Master the `switch` Statement:** Effectively use the switch statement within the `ftnRadioMeal` function to handle multiple possible input choices (like meal preferences) and execute specific code blocks for each case, providing clear, real-time feedback.
+
+3. **Integrate DOM and Event Handling:** Write JavaScript that listens for a user event (like the button onclick or a radio button being selected) and then manipulates the DOM (e.g., dynamically populating the `<select>` list and updating the` <p id="displayPreference">` element) based on the results of the control flow logic.
+
+4. **Structure Application Logic:** Understand how to combine and call separate JavaScript functions—for data (`ftnSalutation`, `ftnGreeting`), validation (`validateInputs`), and conditional processing (`ftnRadioMeal`, `ftnProcessName`)—to build a cohesive application flow.
+
+---
