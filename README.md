@@ -101,7 +101,7 @@ Upon completing this tutorial, you should be able to:
 
 6. **Boolean Return Values:** Returning true for valid input and false for invalid input, which is the **standard pattern for validation helper functions**.
 
-6. **Integrate JS with HTML:** Understand the relationship between the JavaScript functions (in `script.js`) and the HTML form elements (in `index.html`), specifically by using the onclick attribute to call a function (`ftnProcessName()`) when the form button is clicked.
+7. **Integrate JS with HTML:** Understand the relationship between the JavaScript functions (in `script.js`) and the HTML form elements (in `index.html`), specifically by using the onclick attribute to call a function (`ftnProcessName()`) when the form button is clicked.
 
 ---
 
