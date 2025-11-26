@@ -38,7 +38,27 @@ function validateInputs(choice, name = ""){
 // Beef:    "The main course served is Beef Wellington." 
 // Others:  "We will contact you separately to arrange."
 function ftnRadioMeal(meal){
+  // alert(`You have chosen ${meal}`);
+
+  let msg = "Thank you. ";
 
   // TODO: using switch statement to provide the appropriate feedback to the user
+  switch (meal) {
+    case "Vegetarian":
+      msg = msg + "Please contact us to arrange.";
+      break;
+    case "Beef":
+      msg = msg + "We are serving beef wellington.";
+      break;
+    case "Chicken":
+      msg = msg + "We are serving chicken cordon blue.";
+      break;
   
+    default:
+      msg = msg + "No meal preference."
+      break;
+  }
+
+  // TODO: Display the message to the user
+  document.getElementById("displayPreference").textContent = msg;
 }
