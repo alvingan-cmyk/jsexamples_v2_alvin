@@ -1,4 +1,3 @@
-
 /* 
   ftnSalutation is a conventional JS function
   it returns an array of strings where each
@@ -39,8 +38,6 @@ function validateInputs(choice, name = ""){
 // Others:  "We will contact you separately to arrange."
 function ftnRadioMeal(meal){
   // alert(`You have chosen ${meal}`);
-
-  let msg = "Thank you. ";
 
   let msg = "Thank you. ";
 
