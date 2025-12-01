@@ -97,6 +97,42 @@ const newPlayer = "Steph";
 bballTeam.splice(index, 0, newPlayer); //insert newPlayer=Steph at index=2, 0= no replacing
 console.log(bballTeam);
 
+function product(a, b){
+    return a * b;
+}
+
+const resultOfProduct = arr.reduce(product);
+console.log(resultOfProduct);
+
+// append elements to an EXISTING array
+const teamList = ["Tanna", "Shalyn", "Zhang", "Francis"];   // 0 - 3
+teamList.push("Muhaimin");                                  // 0 - 4
+console.log(teamList.length);
+console.log(teamList);
+
+// remove the last element of an EXISTING array
+teamList.pop();                                             // intrinsically known to remove lst element
+console.log(teamList.length);                               // 0 - 3 
+console.log(teamList);                                      // 4 names
+
+// shift and unshift elements of an array
+const mag7 = ["FB", "AMZN", "AAPL", "TSLA", "GOOG"];
+console.log(mag7.shift());                                  // FB removed
+console.log(mag7);                                          // AMZN, AAPL, NFLX, GOOG
+
+// Unshift (prepend META, NVDA, MSFT)
+mag7.unshift("META", "NVDA", "MSFT");
+console.log(mag7);
+
+// splice data (insert or replace data in an array)
+const bballTeam = ["Jordan", "Pippen", "Bill"];             // 0 - 2
+const index = 2;
+const newPlayer = "Steve Carr";  
+bballTeam.splice(index, 0, newPlayer);                      // ["Jordan", "Pippen", "Steve Carr", "Bill"]                           
+console.log(bballTeam);
+
+bballTeam.splice(bballTeam.length - 1, 1, "Rodman");        // Replace "Bill" with "Rodman" 
+console.log(bballTeam);
 
 const newPlayer1 = "Dennis";
 bballTeam.splice(1, 0, newPlayer1); //insert newPlayer1=Dennis at 1 (2nd position), 0= no replacing
@@ -145,6 +181,7 @@ for (let index = max; index >= 1; index--) {
 
 // ii - for-each loop
 // Implement your code here
+const tickerSymbols = ["META", "AMZN", "GOOG", "MSFT"];
 
 const tickerSymbols = ["META", "AMZN", "GOOG", "MSFT"];
 
@@ -154,7 +191,9 @@ for (let index = 0; index < tickerSymbols.length; index++){
 
 tickerSymbols.forEach((element, index) => { console.log(`${element}`) });
 
-// iii - do-while loop (execute first, check for the condition later)
+tickerSymbols.forEach((element, index) => { console.log(`${index + 1}. ${element}`) });
+
+// iii - do-while loop (do first, check later)
 // Implement your code here
 let i = 0;
 
@@ -163,6 +202,10 @@ do {
     i++;
 } while (i <= 5);
 
+do {
+    console.log(i); // print 0 to 10
+    i++;
+} while (i <= 5);
 
 // iv - while loop (check the conditions first before running the while loop)
 // Implement your code here

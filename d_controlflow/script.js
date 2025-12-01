@@ -42,6 +42,8 @@ function ftnRadioMeal(meal){
 
   let msg = "Thank you. ";
 
+  let msg = "Thank you. ";
+
   // TODO: using switch statement to provide the appropriate feedback to the user
   switch (meal) {
     case "Vegetarian":
