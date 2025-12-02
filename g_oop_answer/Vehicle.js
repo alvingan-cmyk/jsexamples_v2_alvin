@@ -16,7 +16,7 @@ class Vehicle {
 
     // Method to get the total distance travelled
     getTotalDistance() {
-        return this.kilometersDriven;
+        return this.distanceTraveled;
     };
 }
 
