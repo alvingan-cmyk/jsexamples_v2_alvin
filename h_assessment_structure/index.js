@@ -20,12 +20,13 @@ const MSG_LEFT = "You moved left.";
 const MSG_RIGHT = "You moved right.";
 const MSG_QUIT = "You quit the game.";
 const MSG_INVALID = "Invalid entry.";
-const MSG_WELCOME = "\n*******************************\n Welcome to Find Your Hat Game\n*******************************\n";
+const MSG_WELCOME =
+  "\n*******************************\n Welcome to Find Your Hat Game\n*******************************\n";
 
 // DONE: WIN / LOSE / OUT messages constants
 const WIN = "Congratulations, you won!";
 const LOSE = "You fell into a hole, you lost!";
-const OUT = "You went out-of-bounds! Please try again.";
+const OUT = "You went out-of-bounds! Please restart.";
 
 // DONE: MAP ROWS, COLUMNS AND PERCENTAGE
 const ROWS = 10;
@@ -54,16 +55,22 @@ class Field {
     const map = new Array();
 
     // generate fileds by rows and cols passed in
-    for (let row = 0; row < rows; row++) {
-      // for each row
+    for (let row = 0; row < rows; row++) {            // for each row
 
-      map[row] = new Array(); // create a new array
 
-      for (let col = 0; col < cols; col++) {
-        // for each col
+      map[row] = new Array();                         // create a new array
+
+      for (let col = 0; col < cols; col++) {          // for each col
+
         map[row][col] = Math.random() > percent ? GRASS : HOLE; // use math.random() to randomise the holes in the map
       }
     }
+
+    if (map[0][0] === HOLE) {                        // Explicitly check and ensure the starting position (0,0) is not a HOLE.
+      map[0][0] = GRASS;                             // If it is, replace it with GRASS.
+    }
+
+    map[0][0] = PLAYER;                              // Set the player's position to 0,0 again
 
     return map;
   }
@@ -85,63 +92,75 @@ class Field {
   }
 
   // DONE: printField displays the updated status of the field position
-  printField(){
+  printField() {
     this.field.forEach((row) => {
       console.log(row.join(""));
-    })
+    });
   }
   // DONE: updateMove displays the move (key) entered by the user
-/**
- * 
- * @param {String} m - passes in the value representing the player's move 
- * @returns 
- */
-  updateMove(m){
-    if(m===UP) return console.log(MSG_UP);
-    if(m===DOWN) return console.log(MSG_DOWN);
-    if(m===LEFT) return console.log(MSG_LEFT);
-    if(m===RIGHT) return console.log(MSG_RIGHT);
-    if(m===QUIT) return console.log(MSG_QUIT);
+  /**
+   *
+   * @param {String} m - passes in the value representing the player's move
+   * @returns
+   */
+  updateMove(m = "") {
+    if (m === UP) return console.log(MSG_UP);
+    if (m === DOWN) return console.log(MSG_DOWN);
+    if (m === LEFT) return console.log(MSG_LEFT);
+    if (m === RIGHT) return console.log(MSG_RIGHT);
+    if (m === QUIT) return console.log(MSG_QUIT);
     return console.log(MSG_INVALID);
-
   }
 
   /**
-   * !! TODO: updateGame Assessment Challenge
+   * !! DONE: updateGame Assessment Challenge
    * @param {*} m accept the value of the player's move (UP|DOWN|LEFT|RIGHT)
    */
-  updateGame(m = ""){
-    // 1. capture the player's currX and currY position first
-    // 2. update the field to show the player's new position
-    // 3. if the player x and y position is a HOLE
-    //    OUT
-    //    process.exit(); 
-    // 4. if player x and y position is out of the map
-    //    LOSE
-    //    process.exit(); 
-    // 5. if the player x and y position === x and y of the HAT
-    //    WIN
-    //    process.exit(); 
-    // 6. otherwise, move the player to the new x and y position based on the 
+  updateGame(m = "") {
+    const oldX = this.playerPosition.x;                            // Capture the player's current X and Y position (store old position)
+    const oldY = this.playerPosition.y;
 
-    
+    let newX = oldX;                                               // Determine the new position based on input 'm'
+    let newY = oldY;
 
+    if (m === UP) newX -= 1;
+    if (m === DOWN) newX += 1;
+    if (m === LEFT) newY -= 1;
+    if (m === RIGHT) newY += 1;
+
+    if (newX < 0 || newX >= ROWS || newY < 0 || newY >= COLS) {    // Check for out of bounds 
+      console.log(OUT);
+      process.exit();
+    }
+
+    const destination = this.field[newX][newY];                   // Check what is at the new location
+
+    if (destination === HOLE) {
+      console.log(LOSE);
+      process.exit();
+    } else if (destination === HAT) {
+      console.log(WIN);
+      process.exit();
+    }
+
+    this.field[oldX][oldY] = GRASS;                              // Update the previous position to grass
+
+    this.playerPosition.x = newX;                                // Update the player's stored position coordinates
+    this.playerPosition.y = newY;
+
+
+    this.field[newX][newY] = PLAYER;                             // Update the field map with the player's new location
   }
-
+  
   //  DONE: start() a public method of the class to start the game
   start() {
-    // immediate-left and immediate-right, immediate-top and immediate-bottom is blocked
-    //if(hatBlocked(this.field) && !this.gamePlay)  
-    // this.field = Field.generateField();
-
-    this.gamePlay = true;       // start the game
-    this.field[0][0] = PLAYER;  // positioning the player on the field, based on player's default position
-    this.setHat();              // the postion of the Hat
-    // this.printField();          // print the formatted field is moved to the do while loop
+    this.gamePlay = true;                                       // start the game
+    this.setHat();                                              // the postion of the Hat
+    this.updateGame();
 
     // while gamePlay === true, track player moves and updates
     do {
-      this.printField(); // print the formatted field
+      this.printField();                                        // print the formatted field
       const input = prompt("(w)up, (s)down, (a)left, (d)right, (q)exit:");
 
       switch (input.toLowerCase()) {
@@ -161,33 +180,25 @@ class Field {
           this.updateMove(QUIT);
           break;
         default:
-          this.updateMove(); // represents invalid entry
+          this.updateMove();                                 // return (MSG_INVALID)
           break;
       }
 
-      if ((input.toLowerCase())===QUIT)
-        this.gamePlay = false; 
-      
-      // !! TODO: updateGame Assessment Challenge   
-      this.updateGame(input);
- 
-    } while (this.gamePlay);
+      if (input.toLowerCase() === QUIT) this.gamePlay = false;
 
-    //console.log(this.field); // check how the field looks like
+      this.updateGame(input);
+    } while (this.gamePlay);
   }
 }
 
 // DONE: Generate a new field - using Field's static method: generateField
 const gameField = Field.generateField(ROWS, COLS, PERCENT);
-// console.log(gameField);
 
 // DONE: Generate aa welcome message
 Field.welcomeMessage(MSG_WELCOME);
-// console.log(Field.generateField(ROWS, COLS, PERCENT));
 
 // DONE: Create a new instance of the game
 const game = new Field(gameField);
-// console.log(game.field);
 
 // DONE: Invoke method start(...) from the instance of game object
 game.start();
