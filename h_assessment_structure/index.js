@@ -29,7 +29,7 @@ const LOSE = "You fell into a hole, you lost!";
 const OUT = "You went out-of-bounds! Please restart.";
 
 // DONE: MAP ROWS, COLUMNS AND PERCENTAGE
-const ROWS = 10;
+const ROWS = 6;
 const COLS = 10;
 const PERCENT = 0.2; // variable that set the % of randomisation of holes in game field to 20%
 
@@ -66,12 +66,11 @@ class Field {
       }
     }
 
-    if (map[0][0] === HOLE) {                        // Explicitly check and ensure the starting position (0,0) is not a HOLE.
-      map[0][0] = GRASS;                             // If it is, replace it with GRASS.
+    if (map[0][0] === HOLE) {                        // Check the starting position (0,0) for HOLE.
+      map[0][0] = PLAYER;                            // if true, reset the position to PLAYER
     }
 
-    map[0][0] = PLAYER;                              // Set the player's position to 0,0 again
-
+                                
     return map;
   }
 
